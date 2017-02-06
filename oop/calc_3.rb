@@ -4,7 +4,7 @@
 # DRY up all the code below - there shouldn't be a single method duplicated between
 # any two classes.
 
-class SimpleCalculator
+module Calculator
 
   def add(first_number, second_number)
     first_number + second_number
@@ -23,52 +23,20 @@ class SimpleCalculator
   end
 
 end
+
+class SimpleCalculator
+  include Calculator
+end 
 
 class FancyCalculator
-
-  def add(first_number, second_number)
-    first_number + second_number
-  end
-
-  def subtract(first_number, second_number)
-    first_number - second_number
-  end
-
-  def multiply(first_number, second_number)
-    first_number * second_number
-  end
-
-  def divide(first_number, second_number)
-    first_number / second_number
-  end
-
+  include Calculator
   def square_root(number)
     Math.sqrt(number)
   end
 
 end
 
-class WhizBangCalculator
-
-  def add(first_number, second_number)
-    first_number + second_number
-  end
-
-  def subtract(first_number, second_number)
-    first_number - second_number
-  end
-
-  def multiply(first_number, second_number)
-    first_number * second_number
-  end
-
-  def divide(first_number, second_number)
-    first_number / second_number
-  end
-
-  def square_root(number)
-    Math.sqrt(number)
-  end
+class WhizBangCalculator < FancyCalculator
 
   def hypotenuse(first_number, second_number)
     Math.hypot(first_number, second_number)
@@ -83,4 +51,61 @@ class WhizBangCalculator
 end
 
 # Copy your driver code from the previous exercise and more below:
+
+puts "Testing fancy_calculator"
+puts
+
+simplecalculator = SimpleCalculator.new
+fancycalculator = FancyCalculator.new
+whizcalculator = WhizBangCalculator.new
+
+
+result = simplecalculator.add(2,7)
+if result == 9
+  puts "PASS"
+else 
+  puts "F"
+end
+
+result = simplecalculator.subtract(8,4)
+if result == 4
+  puts "PASS"
+else 
+  puts "F"
+end
+
+result = simplecalculator.multiply(6,4)
+if result == 24
+  puts "PASS"
+else
+  puts "F"
+end
+
+result = simplecalculator.divide(6,3)
+if result == 2
+  puts "PASS"
+else
+  puts "F"
+end
+
+result = fancycalculator.square_root(25)
+if result == 5
+  puts "PASS"
+else
+  puts "F"
+end
+
+result = whizcalculator.hypotenuse(24, 10)
+if result == 26
+  puts "PASS"
+else 
+  puts "F"
+end 
+
+result = whizcalculator.exponent(4,2)
+if result == 16
+  puts "PASS"
+else 
+  puts "F"
+end 
 
